@@ -98,4 +98,12 @@ class NotORM extends NotORM_Abstract {
 		return $return;
 	}
 	
+	/**
+	* Get PDO connection
+	* @return object PDO instance
+	*/
+	function getConnection() {
+		return $this->connection;
+	}
+	
 }

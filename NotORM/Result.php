@@ -645,6 +645,16 @@ class NotORM_Result extends NotORM_Abstract implements Iterator, ArrayAccess, Co
 		return $return;
 	}
 	
+	/**
+	 * Fetch single row
+	 * - shortcut to $this->limit(1)->fetch()
+	 * @return mixed 
+	 */
+	function fetchSingle($column='') {
+		$this->limit(1);
+		return $this->fetch($column);
+	}
+	
 	protected function access($key, $delete = false) {
 		if ($delete) {
 			if (is_array($this->access)) {
@@ -762,6 +772,14 @@ class NotORM_Result extends NotORM_Abstract implements Iterator, ArrayAccess, Co
 	function jsonSerialize() {
 		$this->execute();
 		return $this->data;
+	}
+	
+	/**
+	 * Get result table name
+	 * @return string table name
+	 */
+	function getTableName() {
+		return $this->table;
 	}
 	
 }
