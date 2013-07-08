@@ -19,6 +19,7 @@ include_once dirname(__FILE__) . "/NotORM/Literal.php";
 include_once dirname(__FILE__) . "/NotORM/Result.php";
 include_once dirname(__FILE__) . "/NotORM/MultiResult.php";
 include_once dirname(__FILE__) . "/NotORM/Row.php";
+include_once dirname(__FILE__) . "/NotORM/Repository.php";
 
 
 
@@ -104,6 +105,12 @@ class NotORM extends NotORM_Abstract {
 	*/
 	function getConnection() {
 		return $this->connection;
+	}
+	
+	function getRepository($table) {
+		$rowClass = $this->rowClass;
+		$row = new $rowClass(array(), $this->$table());
+		return $row->getRepository();
 	}
 	
 }

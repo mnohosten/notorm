@@ -183,4 +183,8 @@ class NotORM_Row extends NotORM_Abstract implements IteratorAggregate, ArrayAcce
 		return $this->row;
 	}
 	
+	function getRepository() {
+		return new NotORM_Repository($this);
+	}
+	
 }
