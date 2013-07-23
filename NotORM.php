@@ -46,6 +46,9 @@ abstract class NotORM_Abstract {
 * @property-write string $transaction Assign 'BEGIN', 'COMMIT' or 'ROLLBACK' to start or stop transaction
 */
 class NotORM extends NotORM_Abstract {
+
+    protected $activeUpdateContainer = FALSE;
+    protected $updateContainer = array();
 	
 	/** Create database representation
 	* @param PDO
@@ -112,5 +115,24 @@ class NotORM extends NotORM_Abstract {
 		$row = new $rowClass(array(), $this->$table());
 		return $row->getRepository();
 	}
+
+    function enableUpdateContainer() {
+        $this->activeUpdateContainer = TRUE;
+    }
+
+    function disableActiveContainer() {
+        $this->activeUpdateContainer = FALSE;
+    }
+
+    function addToUpdateContainer($key, $value) {
+        if(!$this->activeUpdateContainer) {
+            return;
+        }
+        $this->updateContainer[$key] = $value;
+    }
+
+    function getUpdateContainer() {
+        return $this->updateContainer;
+    }
 	
 }

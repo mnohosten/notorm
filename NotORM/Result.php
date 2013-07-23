@@ -234,6 +234,7 @@ class NotORM_Result extends NotORM_Abstract implements Iterator, ArrayAccess, Co
 		if (!isset($data[$this->primary]) && ($id = $this->notORM->connection->lastInsertId($this->notORM->structure->getSequence($this->table)))) {
 			$data[$this->primary] = $id;
 		}
+        $this->notORM->addToUpdateContainer($this->table, $data);
 		return new $this->notORM->rowClass($data, $this);
 	}
 	
